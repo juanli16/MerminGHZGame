@@ -36,7 +36,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
         'color': colors['text']
     }),
 
-    html.Div(style={'width': '12%'}, children=[
+    html.Div(style={'width': '12%','margin-left': 'auto', 'margin-right': 'auto'}, children=[
         html.Label('Choose valid inputs'),
         dcc.Dropdown(
             id='input_bit',
