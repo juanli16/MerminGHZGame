@@ -18,8 +18,19 @@ colors = {
 }
 
 
+app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
+    html.H1(
+        children='Mermin-GHZ Game',
+        style={
+            'textAlign': 'center',
+            'color': colors['text']
+        }
+    ),
 
-app.layout = html.Div()
+    html.Div(children='A comparison of classical and quantum strategies.', style={
+        'textAlign': 'center',
+        'color': colors['text']
+    })])
 
 random = MerminGHZRandom()
 optimal = MerminGHZOptimal()
