@@ -10,12 +10,22 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 colors = {
     'background': '#111111',
-    'text': '#7FDBFF'
+    'text': '#684CAA'
 }
 
+app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
+    html.H1(
+        children='Mermin-GHZ Game',
+        style={
+            'textAlign': 'center',
+            'color': colors['text']
+        }
+    ),
 
-app.layout = html.Div()
-
+    html.Div(children='A comparison of classical and quantum strategies.', style={
+        'textAlign': 'center',
+        'color': colors['text']
+    })])
 
 if __name__ == '__main__':
     app.run_server(debug=True)
