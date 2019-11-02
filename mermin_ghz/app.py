@@ -19,7 +19,7 @@ colors = {
 
 cr = MerminGHZRandom()
 co = MerminGHZOptimal()
-quantum = MerminGHZQuantum()
+qm = MerminGHZQuantum()
 allowed_inputs = [cr.to_bitstring(bits) for bits in cr.input_bits]
 
 app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
@@ -60,6 +60,18 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
 ])
 
 
+@app.callback(
+    Output('strategy_demo', 'figure'),
+    [Input('input_bit', 'value'),
+     Input('strategy', 'value')])
+def update_strategy_demo(input_bit, strategy):
+    if strategy == 'ran':
+        input_bit, output_bits = cr.run(input_bit)
+    elif strategy == 'opt':
+        input_bit, output_bits = cr.run(input_bit)
+    else:
+        input_bit, output_bits = qm.run(input_bit)
+    return input_bit, output_bits
 
 if __name__ == '__main__':
     app.run_server(debug=True)
