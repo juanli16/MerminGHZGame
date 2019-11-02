@@ -1,7 +1,4 @@
 import numpy as np
-import matplotlib
-matplotlib.use("MACOSX")
-import matplotlib.pyplot as plt
 # import qiskit stuffa
 from qiskit import QuantumCircuit, execute
 from qiskit import Aer
