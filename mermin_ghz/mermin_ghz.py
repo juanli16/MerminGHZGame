@@ -1,21 +1,22 @@
 import math
 import random
+from collections import Counter
 from functools import reduce
 
 
 class MerminGHZ(object):
     def __init__(self, strategy):
         self.strategy = strategy
+        self.input_bits = [[0, 0, 0],
+                          [0, 1, 1],
+                          [1, 0, 1],
+                          [1, 1, 0]
+                          ]
 
     # randomly choose 1 valid input
     def generate_input(self):
         # The input bits have to be divisible by 2
-        input_bits = [[0, 0, 0],
-                      [0, 1, 1],
-                      [1, 0, 1],
-                      [1, 1, 0]
-                      ]
-        return random.choice(input_bits)
+        return random.choice(self.input_bits)
 
 
     # verify if the winning condition is satisfied
@@ -23,6 +24,34 @@ class MerminGHZ(object):
         inputs = reduce(lambda x, y: x | y, input_bits)
         outputs = reduce(lambda x, y: x ^ y, output_bits)
         return inputs == outputs
+
+    # initialize stat dictionary
+    def init_stats(self):
+        stats = {}
+        for bits in self.input_bits:
+           stats[self.to_bitstring(bits)] = {}
+        return stats
+
+    # play the game multiple times
+    def multi_play(self, numruns):
+        cnt  = Counter()
+        stats = self.init_stats()
+        results = Counter()
+        for run in range(numruns):
+            rawin, rawout = self.run()
+            inputs, outputs = self.to_bitstring(rawin), self.to_bitstring(rawout)
+            if outputs not in stats[inputs]:
+                stats[inputs][outputs] = 1
+            else:
+                stats[inputs][outputs] += 1
+            if self.verify(rawin, rawout):
+                cnt['win'] += 1
+            else:
+                cnt['lose'] += 1
+        return cnt, stats
+
+    def to_bitstring(self,l):
+        return ''.join([str(x) for x in l])
 
     def pre_run(self):
         print("Mermin-GHZ Game")
