@@ -13,8 +13,8 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 colors = {
-    'background': '#111111',
-    'text': '#7FDBFF'
+    'background': '#FFFFFF',
+    'text': '#000000'
 }
 
 cr = MerminGHZRandom()
@@ -36,9 +36,10 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
         'color': colors['text']
     }),
 
-    html.Div(children=[
+    html.Div(style={'width': '12%'}, children=[
         html.Label('Choose valid inputs'),
         dcc.Dropdown(
+            id='input_bit',
             options=[
                 {'label': bits, 'value': bits} for bits in allowed_inputs
             ],
@@ -46,6 +47,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
         ),
         html.Label('Radio Items'),
         dcc.RadioItems(
+            id='strategy',
             options=[
                 {'label': 'Classical random', 'value': 'ran'},
                 {'label': 'Classical optimal', 'value': 'opt'},
