@@ -14,6 +14,8 @@ dash = "*"
 dash-daq = "*"
 keras = "*"
 tensorflow = "*"
+plaidml = "*"
+plaidml-keras = "*"
 
 [requires]
 python_version = "3.7"

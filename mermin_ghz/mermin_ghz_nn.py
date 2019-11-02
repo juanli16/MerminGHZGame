@@ -27,12 +27,12 @@ class MerminGHZNN(MerminGHZ):
             y.append(d[1])
         #x = [[0, 0], [0, 1], [1, 0], [1, 1]]
         #y = [0, 1, 1, 0]
-        x = np.array(x * 1000)
-        y = np.array(y * 1000)
+        x = np.array(x*1000)
+        y = np.array(y*1000)
         return x, y
 
     def model(self):
-        inp = Input(shape=(2,))
+        inp = Input(shape=(3,))
         inp1 = Lambda(lambda x: x[:,0:1])(inp)
         inp2 = Lambda(lambda x: x[:,1:2])(inp)
         inp3 = Lambda(lambda x: x[:,2:3])(inp)
@@ -40,7 +40,7 @@ class MerminGHZNN(MerminGHZ):
         h2_out = Dense(9, activation='relu')(inp2)
         h3_out = Dense(9, activation='relu')(inp3)
         h_out  = concatenate([h1_out, h2_out, h3_out])
-        out = Dense(1, activation='sigmoid')(h_out)
+        out = Dense(3, activation='sigmoid')(h_out)
         model = Model(inp, out)
         model.compile(loss='binary_crossentropy',
               optimizer=OPT,
@@ -50,7 +50,6 @@ class MerminGHZNN(MerminGHZ):
     def fully_connected_model(self):
         model = Sequential()
         model.add(Dense(27, activation='sigmoid', input_dim=3))
-        model.add(Dense(27, activation='sigmoid'))
         model.add(Dense(3, activation='sigmoid'))
         model.compile(loss='binary_crossentropy',
               optimizer=OPT,
@@ -73,7 +72,7 @@ class MerminGHZNN(MerminGHZ):
 
 def main():
     game = MerminGHZNN()
-    connected = True
+    connected = False
     game.run_model(connected)
     """
     inputs, outputs = game.run()
