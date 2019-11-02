@@ -2,7 +2,7 @@ import random
 # from mermin_ghz import generate_input, verify, pre_run, post_run
 from mermin_ghz import MerminGHZ
 
-class MerminGHZ_random(MerminGHZ):
+class MerminGHZRandom(MerminGHZ):
     def __init__(self):
         super().__init__(self)
         self.strategy = "classical_random"
@@ -18,7 +18,7 @@ class MerminGHZ_random(MerminGHZ):
 
 
 def main():
-    game = MerminGHZ_random()
+    game = MerminGHZRandom()
     inputs, outputs = game.run()
     game.pre_run()
     game.post_run(inputs, outputs)

@@ -1,6 +1,6 @@
 from mermin_ghz import MerminGHZ
 
-class MerminGHZClassicalOptimal(MerminGHZ):
+class MerminGHZOptimal(MerminGHZ):
     def __init__(self):
         super().__init__(self)
         self.strategy = "classical_optimal"
@@ -15,7 +15,7 @@ class MerminGHZClassicalOptimal(MerminGHZ):
         return inputs, [alice, bob, charlie]
 
 def main():
-    game = MerminGHZClassicalOptimal()
+    game = MerminGHZOptimal()
     inputs, outputs = game.run()
     game.pre_run()
     print("Here, we have a fixed deterministic strategy that is optimal and can win 3/4 of the time")
