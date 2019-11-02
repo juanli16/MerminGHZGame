@@ -17,6 +17,10 @@ colors = {
     'text': '#7FDBFF'
 }
 
+cr = MerminGHZRandom()
+co = MerminGHZOptimal()
+quantum = MerminGHZQuantum()
+allowed_inputs = [cr.to_bitstring(bits) for bits in cr.input_bits]
 
 app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
     html.H1(
@@ -30,13 +34,32 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
     html.Div(children='A comparison of classical and quantum strategies.', style={
         'textAlign': 'center',
         'color': colors['text']
-    })])
+    }),
 
-random = MerminGHZRandom()
-optimal = MerminGHZOptimal()
-quantum = MerminGHZQuantum()
-allowed_inputs = random.input_bits
-print(allowed_inputs)
+    html.Div(children=[
+        html.Label('Choose valid inputs'),
+        dcc.Dropdown(
+            options=[
+                {'label': bits, 'value': bits} for bits in allowed_inputs
+            ],
+            value='000'
+        ),
+        html.Label('Radio Items'),
+        dcc.RadioItems(
+            options=[
+                {'label': 'Classical random', 'value': 'ran'},
+                {'label': 'Classical optimal', 'value': 'opt'},
+                {'label': 'Quantum', 'value': 'qm'}
+            ],
+            value='Classical random'
+        )
+    ])
+
+
+
+])
+
+
 
 if __name__ == '__main__':
     app.run_server(debug=True)
