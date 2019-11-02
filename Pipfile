@@ -7,10 +7,13 @@ verify_ssl = true
 
 [packages]
 qiskit = "*"
-matplotlib = "*"
+numpy = "*"
 pylatexenc = "*"
 pillow = "*"
-dash = "==1.4.1"
+dash = "*"
+dash-daq = "*"
+keras = "*"
+tensorflow = "*"
 
 [requires]
 python_version = "3.7"
