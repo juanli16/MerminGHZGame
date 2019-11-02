@@ -21,8 +21,9 @@ def main():
     inputs, outputs = game.run()
     game.pre_run()
     game.post_run(inputs, outputs)
-    count = game.multi_play(1000)
+    count, stats = game.multi_play(1000)
     print(count)
+    print(stats)
 
 if __name__ == "__main__":
     main()

@@ -19,6 +19,9 @@ def main():
     game.pre_run()
     print("Here, we have a fixed deterministic strategy that is optimal and can win 3/4 of the time")
     game.post_run(inputs, outputs)
+    counts, stats = game.multi_play(1000)
+    print(counts)
+    print(stats)
 
 if __name__ == "__main__":
     main()
