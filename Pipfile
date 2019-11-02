@@ -10,6 +10,7 @@ qiskit = "*"
 matplotlib = "*"
 pylatexenc = "*"
 pillow = "*"
+dash = "==1.4.1"
 
 [requires]
 python_version = "3.7"
