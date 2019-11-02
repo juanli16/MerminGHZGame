@@ -36,7 +36,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
         'color': colors['text']
     }),
 
-    html.Div(style={'width': '12%','margin-left': 'auto', 'margin-right': 'auto'}, children=[
+    html.Div(style={'width': '12%','margin-left': 'auto', 'margin-right': 'auto', 'padding': '10px'}, children=[
         html.Label('Choose valid inputs'),
         dcc.Dropdown(
             id='input_bit',
@@ -44,8 +44,11 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
                 {'label': bits, 'value': bits} for bits in allowed_inputs
             ],
             value='000'
-        ),
-        html.Label('Radio Items'),
+            )]
+    ),
+
+    html.Div(style={'width': '12%','margin-left': 'auto', 'margin-right': 'auto', 'padding': '10px'}, children=[
+        html.Label('Strategy'),
         dcc.RadioItems(
             id='strategy',
             options=[
