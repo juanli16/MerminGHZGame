@@ -25,33 +25,32 @@ class MerminGHZNN(MerminGHZ):
         for d in data:
             x.append(d[0])
             y.append(d[1])
-        """
-        x = [[0, 0], [0, 1], [1, 0], [1, 1]]
-        y = [0, 1, 1, 0]
-        """
+        #x = [[0, 0], [0, 1], [1, 0], [1, 1]]
+        #y = [0, 1, 1, 0]
         x = np.array(x * 1000)
         y = np.array(y * 1000)
         return x, y
 
     def model(self):
-        inp = Input(shape=(3,))
+        inp = Input(shape=(2,))
         inp1 = Lambda(lambda x: x[:,0:1])(inp)
         inp2 = Lambda(lambda x: x[:,1:2])(inp)
         inp3 = Lambda(lambda x: x[:,2:3])(inp)
-        h1_out = Dense(3, activation='sigmoid')(inp1)
-        h2_out = Dense(3, activation='sigmoid')(inp2)
-        h3_out = Dense(3, activation='sigmoid')(inp3)
+        h1_out = Dense(9, activation='relu')(inp1)
+        h2_out = Dense(9, activation='relu')(inp2)
+        h3_out = Dense(9, activation='relu')(inp3)
         h_out  = concatenate([h1_out, h2_out, h3_out])
-        out = Dense(3, activation='sigmoid')(h_out)
+        out = Dense(1, activation='softmax')(h_out)
         model = Model(inp, out)
-        model.compile(loss='mean_squared_error',
-              optimizer='sgd',
+        model.compile(loss='binary_crossentropy',
+              optimizer=OPT,
               metrics=['accuracy'])
         return model
 
     def fully_connected_model(self):
         model = Sequential()
-        model.add(Dense(81, activation='sigmoid', input_dim=3))
+        model.add(Dense(27, activation='sigmoid', input_dim=3))
+        model.add(Dense(27, activation='sigmoid'))
         model.add(Dense(3, activation='sigmoid'))
         model.compile(loss='binary_crossentropy',
               optimizer=OPT,
@@ -64,7 +63,7 @@ class MerminGHZNN(MerminGHZ):
             model = self.model()
         else:
             model = self.fully_connected_model()
-        model.fit(x, y, epochs = 1000)
+        model.fit(x, y, epochs = 200)
         loss, metrics = model.evaluate(x, y, verbose=0)
         # print(loss, metrics)
 
@@ -74,7 +73,7 @@ class MerminGHZNN(MerminGHZ):
 
 def main():
     game = MerminGHZNN()
-    connected = False
+    connected = True
     game.run_model(connected)
     """
     inputs, outputs = game.run()
