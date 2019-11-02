@@ -1,5 +1,6 @@
 import math
 import random
+from collections import Counter
 from functools import reduce
 
 
@@ -23,6 +24,19 @@ class MerminGHZ(object):
         inputs = reduce(lambda x, y: x | y, input_bits)
         outputs = reduce(lambda x, y: x ^ y, output_bits)
         return inputs == outputs
+
+    # play the game multiple times
+    def multi_play(self, numruns):
+        cnt  = Counter()
+        inputs = [[0,0,0]]*numruns
+        outputs = [[0,0,0]]*numruns
+        for run in range(numruns):
+            if verify(self.run()):
+                cnt['win'] += 1
+            else:
+                cnt['lose'] += 1
+        return(cnt)
+    
 
     def pre_run(self):
         print("Mermin-GHZ Game")
