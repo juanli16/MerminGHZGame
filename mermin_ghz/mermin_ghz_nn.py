@@ -40,7 +40,7 @@ class MerminGHZNN(MerminGHZ):
         h2_out = Dense(9, activation='relu')(inp2)
         h3_out = Dense(9, activation='relu')(inp3)
         h_out  = concatenate([h1_out, h2_out, h3_out])
-        out = Dense(1, activation='softmax')(h_out)
+        out = Dense(1, activation='sigmoid')(h_out)
         model = Model(inp, out)
         model.compile(loss='binary_crossentropy',
               optimizer=OPT,
