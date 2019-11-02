@@ -15,8 +15,9 @@ class MerminGHZQuantum(MerminGHZ):
         super().__init__(self)
         self.strategy = "Quantum"
 
-    def run(self):
-        input_bits = self.generate_input()
+    def run(self, input_bits=None):
+        if input_bits is None:
+            input_bits = self.generate_input()
         result = self.mermin_ghz(input_bits)
         return input_bits, self.postprocess_result(result)
 
@@ -79,6 +80,6 @@ def main():
     game.pre_run()
     for a in outputs:
         game.post_run(inputs, a)
-
+ 
 if __name__ == "__main__":
     main()

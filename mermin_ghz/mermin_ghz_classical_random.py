@@ -7,8 +7,9 @@ class MerminGHZ_random(MerminGHZ):
         super().__init__(self)
         self.strategy = "classical_random"
 
-    def run(self):
-        inputs = self.generate_input()
+    def run(self, inputs=None):
+        if inputs is None:
+            inputs = self.generate_input()
         answers = [0, 1]
         alice = random.choice(answers)
         bob = random.choice(answers)
@@ -21,7 +22,7 @@ def main():
     inputs, outputs = game.run()
     game.pre_run()
     game.post_run(inputs, outputs)
-    count, stats = game.multi_play(1000)
+    count, stats = game.multi_play(1000,[0,0,0])
     print(count)
     print(stats)
 

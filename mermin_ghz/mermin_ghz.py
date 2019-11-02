@@ -26,19 +26,22 @@ class MerminGHZ(object):
         return inputs == outputs
 
     # initialize stat dictionary
-    def init_stats(self):
+    def init_stats(self, input_bits=None):
         stats = {}
-        for bits in self.input_bits:
-           stats[self.to_bitstring(bits)] = {}
+        if input_bits is None:
+            for bits in self.input_bits:
+                stats[self.to_bitstring(bits)] = {}
+        else:
+            stats[self.to_bitstring(input_bits)] = {}
         return stats
 
     # play the game multiple times
-    def multi_play(self, numruns):
+    def multi_play(self, numruns, input_bits=None):
         cnt  = Counter()
-        stats = self.init_stats()
+        stats = self.init_stats(input_bits)
         results = Counter()
         for run in range(numruns):
-            rawin, rawout = self.run()
+            rawin, rawout = self.run(input_bits)
             inputs, outputs = self.to_bitstring(rawin), self.to_bitstring(rawout)
             if outputs not in stats[inputs]:
                 stats[inputs][outputs] = 1
