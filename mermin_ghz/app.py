@@ -165,28 +165,36 @@ def update_bar_graph(n_click, input_bit, n_run):
         opt_keys.sort()
         qm_keys = list(qm_result.keys())
         qm_keys.sort()
+        x_label.sort()
 
         # annotations:
-        x=[i for i in range(len(x_label))]
-        y=[rm_result[x] + 0.5 for x in rm_keys]
-        text=["win" if cr.verify(cr.to_list(input_bit), cr.to_list(x)) else "lose" for x in x_label]
+        x_annot = x_label
+        y_annot = []
+        for x in x_label:
+            if x in rm_keys:
+                y_annot.append(rm_result[x] + 0.5)
+            elif x in qm_keys:
+                y_annot.append(qm_result[x] + 0.5)
+            else:
+                y_annot.append(opt_result[x] + 0.5)
+        text_label=["win" if cr.verify(cr.to_list(input_bit), cr.to_list(x)) else "lose" for x in x_label]
         # figure
         figure=go.Figure(
             data = [
-                go.Bar(x=[output_bits for output_bits in rm_keys],
-                       y=[rm_result[k] for k in rm_keys],
+                go.Bar(x=x_label,
+                       y=[rm_result[k] if k in rm_keys else 0 for k in x_label],
                        name='Classical Random',
                        marker=go.bar.Marker(
                            color='#F03200')
                        ),
-                go.Bar(x=[output_bits for output_bits in opt_keys],
-                       y=[opt_result[k] for k in opt_keys],
+                go.Bar(x=x_label,
+                       y=[opt_result[k] if k in opt_keys else 0 for k in x_label],
                        name='Classical optimal',
                        marker=go.bar.Marker(
                            color='#F0F000')
                        ),
-                go.Bar(x=[output_bits for output_bits in qm_keys],
-                       y=[qm_result[k] for k in qm_keys],
+                go.Bar(x=x_label,
+                       y=[qm_result[k] if k in qm_keys else 0 for k in x_label],
                        name='Quantum',
                        marker=go.bar.Marker(
                            color='#084F9D')
@@ -202,15 +210,15 @@ def update_bar_graph(n_click, input_bit, n_run):
                 annotations = [
                     dict(
                         x = xpos,
-                        y = ypos,
+                        y = ypos + n_run/4,
                         xref='x',
                         yref='y',
                         text = textpos,
-                        showarrow=True,
+                        showarrow=False,
                         arrowhead=7,
                         ax=0,
                         ay=-40
-                    ) for xpos, ypos, textpos in zip(x, y, text)
+                    ) for xpos, ypos, textpos in zip(x_annot, y_annot, text_label)
                 ]
             )
         )
