@@ -15,10 +15,10 @@ class MerminGHZQuantum(MerminGHZ):
         super().__init__(self)
         self.strategy = "Quantum"
 
-    def run(self, input_bits=None):
+    def run(self, shots=1, input_bits=None):
         if input_bits is None:
             input_bits = self.generate_input()
-        result = self.mermin_ghz(input_bits)
+        result = self.mermin_ghz(input_bits, shots)
         return input_bits, self.postprocess_result(result)
 
     # Function to create the initial entangled GHZ state: 1/sqrt(2)(|000> + |111>)
@@ -49,7 +49,7 @@ class MerminGHZQuantum(MerminGHZ):
     def generate_phase(self, x):
         return np.pi * x / 2
 
-    def mermin_ghz(self, input_bits):
+    def mermin_ghz(self, input_bits, shots):
         # prepare the initial entangled state
         ghz = self.generate_initial_ghz(3)
         # run though the winning strategy quantum circuit
@@ -58,7 +58,7 @@ class MerminGHZQuantum(MerminGHZ):
         mghz.measure([0, 1, 2], [0, 1, 2])
 
         # Create a Quantum Program for execution
-        job = execute(mghz, backend)
+        job = execute(mghz, backend, shots=shots)
         #obtain the results
         result = job.result()
         return result.get_counts(mghz)
@@ -80,6 +80,6 @@ def main():
     game.pre_run()
     for a in outputs:
         game.post_run(inputs, a)
- 
+
 if __name__ == "__main__":
     main()
