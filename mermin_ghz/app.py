@@ -62,21 +62,21 @@ app.layout = html.Div(style={'backgroundColor': colors['background'],'font-famil
         )
     ]),
 
-    html.Div(id='strategy_demo', children=[
-        html.Div(id='strategy_demo_images', children=[
-            html.Div(id='strategy_demo_images_alice', children=[
-                html.Img(id='Alice', src='assets/alice.png')
-            ]),
-            html.Div(id='strategy_demo_images_bob', children=[
-                html.Img(id='Bob', src='assets/bob.jpg')
-            ]),
-            html.Div(id='strategy_demo_images_charlie', children=[
-                html.Img(id='Charlie', src='assets/charlie.png')
-            ])
+    html.Div(style={'width': '12%', 'margin-left': 'auto', 'margin-right': 'auto', 'padding': '10px'}, children=[
+        html.Button("Let's play", id='strategy_demo')
+    ]),
+
+    html.Div(id='players', style={'width':'600px','margin-left':'auto','margin-right':'auto', 'padding': '10px'}, children=[
+        html.Div(id='strategy_demo_images_alice', style={'float': 'left', 'width': '200px'}, children=[
+            html.Img(id='Alice', src='assets/alice.png')
+        ]),
+        html.Div(id='strategy_demo_images_bob', style={'float': 'left', 'width': '200px'}, children=[
+            html.Img(id='Bob', src='assets/bob.jpg')
+        ]),
+        html.Div(id='strategy_demo_images_charlie', style={'float': 'left', 'width': '200px'}, children=[
+            html.Img(id='Charlie', src='assets/charlie.png')
         ])
     ])
-
-
 ])
 
 """
