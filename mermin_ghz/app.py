@@ -63,6 +63,17 @@ app.layout = html.Div(style={'backgroundColor': colors['background'],'font-famil
     ]),
 
     html.Div(id='strategy_demo', children=[
+        html.Div(id='strategy_demo_images', children=[
+            html.Div(id='strategy_demo_images_alice', children=[
+                html.Img(id='Alice', src='assets/alice.png')
+            ]),
+            html.Div(id='strategy_demo_images_bob', children=[
+                html.Img(id='Bob', src='assets/bob.jpg')
+            ]),
+            html.Div(id='strategy_demo_images_charlie', children=[
+                html.Img(id='Charlie', src='assets/charlie.png')
+            ])
+        ])
     ])
 
 
