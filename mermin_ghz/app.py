@@ -160,17 +160,32 @@ def update_bar_graph(n_click, input_bit, n_run):
         rm_result, opt_result, qm_result = get_multi_run_results(input_bit, n_run)
         x_label = list(set(list(rm_result.keys()) + list(opt_result.keys()) + list(qm_result.keys())))
         print(x_label)
-        figure={
-            'data': [
-                {'x': [output_bits for output_bits in rm_result.keys()], 'y': [rm_result[k] for k in rm_result.keys()], 'type': 'bar', 'name': 'Classical Random'},
-                {'x': [output_bits for output_bits in opt_result.keys()], 'y': [opt_result[k] for k in opt_result.keys()], 'type': 'bar', 'name': 'Classical optimal'},
-                {'x': [output_bits for output_bits in qm_result.keys()], 'y': [qm_result[k] for k in qm_result.keys()], 'type': 'bar', 'name': 'Quantum'},
+        figure=go.Figure(
+            data = [
+                go.Bar(x=[output_bits for output_bits in rm_result.keys()],
+                       y=[rm_result[k] for k in rm_result.keys()],
+                       name='Classical Random',
+                       marker=go.bar.Marker(
+                           color='rgb(55, 83, 109)')
+                       ),
+                go.Bar(x=[output_bits for output_bits in opt_result.keys()],
+                       y=[opt_result[k] for k in opt_result.keys()],
+                       name='Classical optimal',
+                       marker=go.bar.Marker(
+                           color='rgb(55, 255, 109)')
+                       ),
+                go.Bar(x=[output_bits for output_bits in qm_result.keys()],
+                       y=[qm_result[k] for k in qm_result.keys()],
+                       name='Quantum',
+                       marker=go.bar.Marker(
+                           color='rgb(26, 118, 109)')
+                       )
             ],
-            'layout': {
-                'xaxis': x_label,
-                'title': 'Comparison of Strategies'
-            }
-        }
+            layout=go.Layout(
+                title='Comparison of Strategies',
+                showlegend=True,
+            )
+        )
         return figure
     else:
         return {}
