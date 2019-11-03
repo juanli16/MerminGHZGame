@@ -102,7 +102,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background'],'font-famil
             html.Div(style={'width': '12%','margin-left': 'auto', 'margin-right': 'auto', 'padding': '10px'}, children=[
                 dcc.Input(id='nb_run',
                           type='number',
-                          placeholder='Enter number of runs'
+                          placeholder='Number of runs'
                           )
             ]),
 
