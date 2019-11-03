@@ -19,7 +19,7 @@ class MerminGHZQuantum(MerminGHZ):
         if input_bits is None:
             input_bits = self.generate_input()
         result = self.mermin_ghz(input_bits, shots)
-        return input_bits, self.postprocess_result(result)
+        return input_bits, result
 
     # Function to create the initial entangled GHZ state: 1/sqrt(2)(|000> + |111>)
     def generate_initial_ghz(self, n_qb):
@@ -77,6 +77,8 @@ def main():
     game = MerminGHZQuantum()
     # prepare the initial entangled state
     inputs, outputs = game.run(1, [0, 0, 0])
+    print(outputs)
+    outputs = game.postprocess_result(outputs)
     game.pre_run()
     for a in outputs:
         game.post_run(inputs, a)

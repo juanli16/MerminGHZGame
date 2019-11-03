@@ -58,7 +58,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background'],'font-famil
                 {'label': 'Classical optimal', 'value': 'opt'},
                 {'label': 'Quantum', 'value': 'qm'}
             ],
-            value='Classical random'
+            #value='Classical random'
         )
     ]),
 
@@ -80,10 +80,20 @@ app.layout = html.Div(style={'backgroundColor': colors['background'],'font-famil
             html.H2(id='Charlie_output', children='0', style={'text-align': 'center'})
         ])
     ]),
-    
+
     html.Div(id='strategy_demo_color', style={'width': '600px', 'margin-left': 'auto', 'margin-right': 'auto', 'padding': '10px', 'text-align': 'center'}, children=[
         html.H3(id='strategy_demo_result')
+    ]),
+
+
+    # For multirun graphs:
+    html.Div(style={'width': '12%','margin-left': 'auto', 'margin-right': 'auto', 'padding': '10px'}, children=[
+        dcc.Input(type='number',
+                  placeholder='Enter number of runs'
+                  )
     ])
+
+
 ])
 
 @app.callback(
@@ -101,9 +111,12 @@ def update_strategy_demo(n_click, input_bit, strategy):
             _, output_bits = cr.run(input_bit)
         elif strategy == 'opt':
             _, output_bits = co.run(input_bit)
-        else:
+        elif strategy == 'qm':
             _, output_bits = qm.run(1, input_bit)
+            output_bits = qm.postprocess_result(output_bits)
             output_bits = output_bits[0]
+        else:
+            return '', '', '', ''
         # test with verify function to see if won
         if cr.verify(input_bit, output_bits) is True:
             result  = 'Winner Winner, Chicken Dinner'
@@ -114,6 +127,19 @@ def update_strategy_demo(n_click, input_bit, strategy):
         return output_bits[0], output_bits[1], output_bits[2], result
     else:
         return '', '', '', ''
+
+
+# @app.callback()
+def update_bar_graph(n_click, input_bit, n_run):
+    rm_result, opt_result, qm_result = get_multi_run_results(input_bit, n_run)
+    return
+
+
+def get_multi_run_results(input_bit, n_run):
+   _, random_result = cr.multi_play(n_run, input_bit)
+   _, optimal_result = co.multi_play(n_run, input_bit)
+   _, quantum_result = qm.multi_play(n_run, input_bit)
+   return random_result, optimal_result, quantum_result
 
 if __name__ == '__main__':
     app.run_server(debug=True)
