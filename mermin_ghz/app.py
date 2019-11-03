@@ -100,7 +100,8 @@ app.layout = html.Div(style={'backgroundColor': colors['background'],'font-famil
 
             # For multirun graphs:
             html.Div(style={'width': '12%','margin-left': 'auto', 'margin-right': 'auto', 'padding': '10px'}, children=[
-                dcc.Input(type='number',
+                dcc.Input(id='nb_run',
+                          type='number',
                           placeholder='Enter number of runs'
                           )
             ]),
@@ -147,8 +148,13 @@ def update_strategy_demo(n_click, input_bit, strategy):
     else:
         return '', '', '', ''
 
-
-# @app.callback()
+"""
+@app.callback(
+    [Output('multi_bar_graph', 'figure')],
+    [Input('strategy_stats', 'n_clicks'),
+     Input('input_bit_stats', 'value'),
+     Input('nb_run', 'value')])
+"""
 def update_bar_graph(n_click, input_bit, n_run):
     rm_result, opt_result, qm_result = get_multi_run_results(input_bit, n_run)
     return
