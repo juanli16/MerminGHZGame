@@ -156,7 +156,7 @@ def update_strategy_demo(n_click, input_bit, strategy):
      Input('input_bit_stats', 'value'),
      Input('nb_run', 'value')])
 def update_bar_graph(n_click, input_bit, n_run):
-    if n_click is not None:
+    if n_click is not None and n_run is not None:
         rm_result, opt_result, qm_result = get_multi_run_results(input_bit, n_run)
         x_label = list(set(list(rm_result.keys()) + list(opt_result.keys()) + list(qm_result.keys())))
         rm_keys = list(rm_result.keys())
@@ -166,6 +166,11 @@ def update_bar_graph(n_click, input_bit, n_run):
         qm_keys = list(qm_result.keys())
         qm_keys.sort()
 
+        # annotations:
+        x=[i for i in range(len(x_label))]
+        y=[rm_result[x] + 0.5 for x in rm_keys]
+        text=["win" if cr.verify(cr.to_list(input_bit), cr.to_list(x)) else "lose" for x in x_label]
+        # figure
         figure=go.Figure(
             data = [
                 go.Bar(x=[output_bits for output_bits in rm_keys],
@@ -193,15 +198,22 @@ def update_bar_graph(n_click, input_bit, n_run):
                 barmode='group',
                 bargap=0.5, # gap between bars of adjacent location coordinates.
                 bargroupgap=0.1, # gap between bars of the same location coordinate.
-                xaxis=dict(type='category')
+                xaxis=dict(type='category'),
+                annotations = [
+                    dict(
+                        x = xpos,
+                        y = ypos,
+                        xref='x',
+                        yref='y',
+                        text = textpos,
+                        showarrow=True,
+                        arrowhead=7,
+                        ax=0,
+                        ay=-40
+                    ) for xpos, ypos, textpos in zip(x, y, text)
+                ]
             )
         )
-        x=x_label
-        y=[rm_result[x] + 1 for x in rm_keys]
-        text=["win" if cr.verify(cr.to_list(input_bit), cr.to_list(x)) else "lose" for x in x_label]
-        print(x)
-        print(y)
-        print(text)
         return figure
     else:
         return {}
