@@ -172,19 +172,19 @@ def update_bar_graph(n_click, input_bit, n_run):
                        y=[rm_result[k] for k in rm_keys],
                        name='Classical Random',
                        marker=go.bar.Marker(
-                           color='rgb(55, 83, 109)')
+                           color='#F03200')
                        ),
                 go.Bar(x=[output_bits for output_bits in opt_keys],
                        y=[opt_result[k] for k in opt_keys],
                        name='Classical optimal',
                        marker=go.bar.Marker(
-                           color='rgb(55, 255, 109)')
+                           color='#F0F000')
                        ),
                 go.Bar(x=[output_bits for output_bits in qm_keys],
                        y=[qm_result[k] for k in qm_keys],
                        name='Quantum',
                        marker=go.bar.Marker(
-                           color='rgb(26, 118, 109)')
+                           color='#084F9D')
                        )
             ],
             layout=go.Layout(
