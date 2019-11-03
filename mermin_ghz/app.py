@@ -159,23 +159,29 @@ def update_bar_graph(n_click, input_bit, n_run):
     if n_click is not None:
         rm_result, opt_result, qm_result = get_multi_run_results(input_bit, n_run)
         x_label = list(set(list(rm_result.keys()) + list(opt_result.keys()) + list(qm_result.keys())))
-        print(x_label)
+        rm_keys = list(rm_result.keys())
+        rm_keys.sort()
+        opt_keys = list(opt_result.keys())
+        opt_keys.sort()
+        qm_keys = list(qm_result.keys())
+        qm_keys.sort()
+
         figure=go.Figure(
             data = [
-                go.Bar(x=[output_bits for output_bits in rm_result.keys()],
-                       y=[rm_result[k] for k in rm_result.keys()],
+                go.Bar(x=[output_bits for output_bits in rm_keys],
+                       y=[rm_result[k] for k in rm_keys],
                        name='Classical Random',
                        marker=go.bar.Marker(
                            color='rgb(55, 83, 109)')
                        ),
-                go.Bar(x=[output_bits for output_bits in opt_result.keys()],
-                       y=[opt_result[k] for k in opt_result.keys()],
+                go.Bar(x=[output_bits for output_bits in opt_keys],
+                       y=[opt_result[k] for k in opt_keys],
                        name='Classical optimal',
                        marker=go.bar.Marker(
                            color='rgb(55, 255, 109)')
                        ),
-                go.Bar(x=[output_bits for output_bits in qm_result.keys()],
-                       y=[qm_result[k] for k in qm_result.keys()],
+                go.Bar(x=[output_bits for output_bits in qm_keys],
+                       y=[qm_result[k] for k in qm_keys],
                        name='Quantum',
                        marker=go.bar.Marker(
                            color='rgb(26, 118, 109)')
@@ -184,6 +190,10 @@ def update_bar_graph(n_click, input_bit, n_run):
             layout=go.Layout(
                 title='Comparison of Strategies',
                 showlegend=True,
+                barmode='group',
+                bargap=0.5, # gap between bars of adjacent location coordinates.
+                bargroupgap=0.1, # gap between bars of the same location coordinate.
+                xaxis=dict(type='category')
             )
         )
         return figure
