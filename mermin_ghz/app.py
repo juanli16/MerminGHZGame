@@ -37,52 +37,71 @@ app.layout = html.Div(style={'backgroundColor': colors['background'],'font-famil
         'textAlign': 'center',
         'color': colors['text']
     }),
-
-    html.Div(style={'width': '12%','margin-left': 'auto', 'margin-right': 'auto', 'padding': '10px'}, children=[
-        html.Label('Choose valid inputs'),
-        dcc.Dropdown(
-            id='input_bit',
-            options=[
-                {'label': bits, 'value': bits} for bits in allowed_inputs
-            ],
-            value='000'
-            )]
-    ),
-
-    html.Div(style={'width': '12%','margin-left': 'auto', 'margin-right': 'auto', 'padding': '10px'}, children=[
-        html.Label('Strategy'),
-        dcc.RadioItems(
-            id='strategy',
-            options=[
-                {'label': 'Classical random', 'value': 'ran'},
-                {'label': 'Classical optimal', 'value': 'opt'},
-                {'label': 'Quantum', 'value': 'qm'}
-            ],
-            value='Classical random'
-        )
-    ]),
-
-    html.Div(style={'width': '12%', 'margin-left': 'auto', 'margin-right': 'auto', 'padding': '10px'}, children=[
-        html.Button("Let's play", id='strategy_demo')
-    ]),
-
-    html.Div(id='players', style={'width':'600px', 'height': '270px', 'margin-left':'auto','margin-right':'auto', 'padding': '10px'}, children=[
-        html.Div(id='strategy_demo_images_alice', style={'float': 'left', 'width': '200px', 'height': '200px'}, children=[
-            html.Img(id='Alice', style={'width': '100%', 'border-radius': '50%'}, src='assets/alice.png'),
-            html.H2(id='Alice_output', children='0', style={'text-align': 'center'})
-        ]),
-        html.Div(id='strategy_demo_images_bob', style={'float': 'left', 'width': '200px', 'height': '200px'}, children=[
-            html.Img(id='Bob', style={'width': '100%', 'border-radius': '50%'}, src='assets/bob.png'),
-            html.H2(id='Bob_output', children='0', style={'text-align': 'center'})
-        ]),
-        html.Div(id='strategy_demo_images_charlie', style={'float': 'left', 'width': '200px', 'height': '200px'}, children=[
-            html.Img(id='Charlie', style={'width': '100%', 'border-radius': '50%'}, src='assets/charlie.png'),
-            html.H2(id='Charlie_output', children='0', style={'text-align': 'center'})
-        ])
-    ]),
     
-    html.Div(id='strategy_demo_color', style={'width': '600px', 'margin-left': 'auto', 'margin-right': 'auto', 'padding': '10px', 'text-align': 'center'}, children=[
-        html.H3(id='strategy_demo_result')
+    dcc.Tabs(id='tabs', children=[
+        dcc.Tab(label='Demonstration', children=[
+            html.Div(style={'width': '12%','margin-left': 'auto', 'margin-right': 'auto', 'padding': '10px'}, children=[
+                html.Label('Choose valid inputs'),
+                dcc.Dropdown(
+                    id='input_bit',
+                    options=[
+                        {'label': bits, 'value': bits} for bits in allowed_inputs
+                    ],
+                    value='000'
+                    )]
+            ),
+
+            html.Div(style={'width': '12%','margin-left': 'auto', 'margin-right': 'auto', 'padding': '10px'}, children=[
+                html.Label('Strategy'),
+                dcc.RadioItems(
+                    id='strategy',
+                    options=[
+                        {'label': 'Classical random', 'value': 'ran'},
+                        {'label': 'Classical optimal', 'value': 'opt'},
+                        {'label': 'Quantum', 'value': 'qm'}
+                    ],
+                    value='Classical random'
+                )
+            ]),
+
+            html.Div(style={'width': '12%', 'margin-left': 'auto', 'margin-right': 'auto', 'padding': '10px'}, children=[
+                html.Button("Let's play", id='strategy_demo')
+            ]),
+
+            html.Div(id='players', style={'width':'600px', 'height': '270px', 'margin-left':'auto','margin-right':'auto', 'padding': '10px'}, children=[
+                html.Div(id='strategy_demo_images_alice', style={'float': 'left', 'width': '200px', 'height': '200px'}, children=[
+                    html.Img(id='Alice', style={'width': '100%', 'border-radius': '50%'}, src='assets/alice.png'),
+                    html.H2(id='Alice_output', children='0', style={'text-align': 'center'})
+                ]),
+                html.Div(id='strategy_demo_images_bob', style={'float': 'left', 'width': '200px', 'height': '200px'}, children=[
+                    html.Img(id='Bob', style={'width': '100%', 'border-radius': '50%'}, src='assets/bob.png'),
+                    html.H2(id='Bob_output', children='0', style={'text-align': 'center'})
+                ]),
+                html.Div(id='strategy_demo_images_charlie', style={'float': 'left', 'width': '200px', 'height': '200px'}, children=[
+                    html.Img(id='Charlie', style={'width': '100%', 'border-radius': '50%'}, src='assets/charlie.png'),
+                    html.H2(id='Charlie_output', children='0', style={'text-align': 'center'})
+                ])
+            ]),
+            
+            html.Div(id='strategy_demo_color', style={'width': '600px', 'margin-left': 'auto', 'margin-right': 'auto', 'padding': '10px', 'text-align': 'center'}, children=[
+                html.H3(id='strategy_demo_result')
+            ])
+        ]),
+        dcc.Tab(label='Statistics', children=[
+            html.Div(style={'width': '12%','margin-left': 'auto', 'margin-right': 'auto', 'padding': '10px'}, children=[
+                html.Label('Choose valid inputs'),
+                dcc.Dropdown(
+                    id='input_bit_stats',
+                    options=[
+                        {'label': bits, 'value': bits} for bits in allowed_inputs
+                    ],
+                    value='000'
+                    )]
+            ),
+            html.Div(style={'width': '12%', 'margin-left': 'auto', 'margin-right': 'auto', 'padding': '10px'}, children=[
+                html.Button("Let's play", id='strategy_stats')
+            ])
+        ])
     ])
 ])
 
