@@ -8,7 +8,7 @@ from mermin_ghz_classical_random import MerminGHZRandom
 from mermin_ghz_classical_optimal import MerminGHZOptimal
 from mermin_ghz_quantum import MerminGHZQuantum
 
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css','https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
@@ -17,12 +17,14 @@ colors = {
     'text': '#000000'
 }
 
+app.title = 'Mermin GHZ Game'
+
 cr = MerminGHZRandom()
 co = MerminGHZOptimal()
 qm = MerminGHZQuantum()
 allowed_inputs = [cr.to_bitstring(bits) for bits in cr.input_bits]
 
-app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
+app.layout = html.Div(style={'backgroundColor': colors['background'],'font-family': 'IBM Plex Sans'}, children=[
     html.H1(
         children='Mermin-GHZ Game',
         style={
