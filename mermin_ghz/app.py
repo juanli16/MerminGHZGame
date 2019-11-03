@@ -62,40 +62,49 @@ app.layout = html.Div(style={'backgroundColor': colors['background'],'font-famil
         )
     ]),
 
-#    html.Div(style={'width': '12%', 'margin-left': 'auto', 'margin-right': 'auto', 'padding': '10px'}, children=[
-#        html.Button("Let's play", id='strategy_demo')
-#    ]),
+    html.Div(style={'width': '12%', 'margin-left': 'auto', 'margin-right': 'auto', 'padding': '10px'}, children=[
+        html.Button("Let's play", id='strategy_demo')
+    ]),
 
     html.Div(id='players', style={'width':'600px','margin-left':'auto','margin-right':'auto', 'padding': '10px'}, children=[
         html.Div(id='strategy_demo_images_alice', style={'float': 'left', 'width': '200px'}, children=[
             html.Img(id='Alice', style={'width': '100%', 'border-radius': '50%'}, src='assets/alice.png'),
-            html.H2(children='0', style={'text-align': 'center'})
+            html.H2(id='Alice_output', children='0', style={'text-align': 'center'})
         ]),
         html.Div(id='strategy_demo_images_bob', style={'float': 'left', 'width': '200px'}, children=[
             html.Img(id='Bob', style={'width': '100%', 'border-radius': '50%'}, src='assets/bob.png'),
-            html.H2(children='0', style={'text-align': 'center'})
+            html.H2(id='Bob_output', children='0', style={'text-align': 'center'})
         ]),
         html.Div(id='strategy_demo_images_charlie', style={'float': 'left', 'width': '200px'}, children=[
             html.Img(id='Charlie', style={'width': '100%', 'border-radius': '50%'}, src='assets/charlie.png'),
-            html.H2(children='0', style={'text-align': 'center'})
+            html.H2(id='Charlie_output', children='0', style={'text-align': 'center'})
         ])
     ])
 ])
 
-"""
+
 @app.callback(
-    Output('strategy_demo', 'figure'),
-    [Input('input_bit', 'value'),
+    [Output('Alice_output', 'children'),
+    Output('Bob_output', 'children'),
+    Output('Charlie_output', 'children')],
+    [Input('strategy_demo', 'n_clicks'),
+     Input('input_bit', 'value'),
      Input('strategy', 'value')])
-"""
-def update_strategy_demo(input_bit, strategy):
-    if strategy == 'ran':
-        input_bit, output_bits = cr.run(input_bit)
-    elif strategy == 'opt':
-        input_bit, output_bits = cr.run(input_bit)
+def update_strategy_demo(n_click, input_bit, strategy):
+    if n_click is not None:
+        input_bit = [int(x) for x in input_bit]
+        if strategy == 'ran':
+            _, output_bits = cr.run(input_bit)
+        elif strategy == 'opt':
+            _, output_bits = cr.run(input_bit)
+        else:
+            _, output_bits = qm.run(1, input_bit)
+            output_bits = output_bits[0]
+        output_bits = cr.to_bitstring(output_bits)
+        #n_click = 0
+        return output_bits[0], output_bits[1], output_bits[2]
     else:
-        input_bit, output_bits = qm.run(input_bit)
-    return input_bit, output_bits
+        return '', '', ''
 
 if __name__ == '__main__':
     app.run_server(debug=True)

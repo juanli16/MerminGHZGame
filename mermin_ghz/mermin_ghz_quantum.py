@@ -76,7 +76,7 @@ class MerminGHZQuantum(MerminGHZ):
 def main():
     game = MerminGHZQuantum()
     # prepare the initial entangled state
-    inputs, outputs = game.run()
+    inputs, outputs = game.run(1, [0, 0, 0])
     game.pre_run()
     for a in outputs:
         game.post_run(inputs, a)
