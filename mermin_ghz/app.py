@@ -2,7 +2,8 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import plotly.graph_objs as go
-import sys
+from dash.dependencies import Input, Output
+# Actual game
 from mermin_ghz_classical_random import MerminGHZRandom
 from mermin_ghz_classical_optimal import MerminGHZOptimal
 from mermin_ghz_quantum import MerminGHZQuantum
@@ -55,17 +56,20 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
             ],
             value='Classical random'
         )
-    ])
+    ]),
 
+    html.Div(id='strategy_demo', children=[
+    ])
 
 
 ])
 
-
+"""
 @app.callback(
     Output('strategy_demo', 'figure'),
     [Input('input_bit', 'value'),
      Input('strategy', 'value')])
+"""
 def update_strategy_demo(input_bit, strategy):
     if strategy == 'ran':
         input_bit, output_bits = cr.run(input_bit)
