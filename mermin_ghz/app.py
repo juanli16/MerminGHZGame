@@ -196,6 +196,12 @@ def update_bar_graph(n_click, input_bit, n_run):
                 xaxis=dict(type='category')
             )
         )
+        x=x_label
+        y=[rm_result[x] + 1 for x in rm_keys]
+        text=["win" if cr.verify(cr.to_list(input_bit), cr.to_list(x)) else "lose" for x in x_label]
+        print(x)
+        print(y)
+        print(text)
         return figure
     else:
         return {}

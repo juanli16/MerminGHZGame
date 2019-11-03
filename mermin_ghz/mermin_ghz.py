@@ -56,6 +56,9 @@ class MerminGHZ(object):
     def to_bitstring(self,l):
         return ''.join([str(x) for x in l])
 
+    def to_list(self, l):
+        return [int(x) for x in l]
+
     def pre_run(self):
         print("Mermin-GHZ Game")
         print("- 3 players Alice, Bob, Charlie, all are given an input bit x, y, z, respectively")
