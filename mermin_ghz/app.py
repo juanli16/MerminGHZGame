@@ -96,7 +96,7 @@ def update_strategy_demo(n_click, input_bit, strategy):
         if strategy == 'ran':
             _, output_bits = cr.run(input_bit)
         elif strategy == 'opt':
-            _, output_bits = cr.run(input_bit)
+            _, output_bits = co.run(input_bit)
         else:
             _, output_bits = qm.run(1, input_bit)
             output_bits = output_bits[0]
