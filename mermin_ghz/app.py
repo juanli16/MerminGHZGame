@@ -70,15 +70,15 @@ app.layout = html.Div(style={'backgroundColor': colors['background'],'font-famil
             html.Div(id='players', style={'width':'600px', 'height': '270px', 'margin-left':'auto','margin-right':'auto', 'padding': '10px'}, children=[
                 html.Div(id='strategy_demo_images_alice', style={'float': 'left', 'width': '200px', 'height': '200px'}, children=[
                     html.Img(id='Alice', style={'width': '100%', 'border-radius': '50%'}, src='assets/alice.png'),
-                    html.H2(id='Alice_output', children='0', style={'text-align': 'center'})
+                    html.H2(id='Alice_output', style={'text-align': 'center'})
                 ]),
                 html.Div(id='strategy_demo_images_bob', style={'float': 'left', 'width': '200px', 'height': '200px'}, children=[
                     html.Img(id='Bob', style={'width': '100%', 'border-radius': '50%'}, src='assets/bob.png'),
-                    html.H2(id='Bob_output', children='0', style={'text-align': 'center'})
+                    html.H2(id='Bob_output', style={'text-align': 'center'})
                 ]),
                 html.Div(id='strategy_demo_images_charlie', style={'float': 'left', 'width': '200px', 'height': '200px'}, children=[
                     html.Img(id='Charlie', style={'width': '100%', 'border-radius': '50%'}, src='assets/charlie.png'),
-                    html.H2(id='Charlie_output', children='0', style={'text-align': 'center'})
+                    html.H2(id='Charlie_output', style={'text-align': 'center'})
                 ])
             ]),
 
